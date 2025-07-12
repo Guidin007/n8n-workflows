@@ -1,0 +1,109 @@
+{
+  "name": "My Beginner Practique",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "/hello",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        20,
+        20
+      ],
+      "id": "77f790a2-d707-46fd-a6d3-afab046d77b9",
+      "name": "Webhook",
+      "webhookId": "02ca2ac7-7426-4b2b-ac67-091f914a146f"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8a97ee19-a3d0-48f5-8f83-863d92acaa32",
+              "name": "",
+              "value": "message = Hello, n8n!",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        20
+      ],
+      "id": "5c53d124-c6d9-46c2-b08b-c9d2d047f07e",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "Hello, n8n!",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        460,
+        20
+      ],
+      "id": "d330667e-3956-48bf-9eaa-6260699e445c",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "name": "First item",
+          "code": 1
+        }
+      },
+      {
+        "json": {
+          "name": "Second item",
+          "code": 2
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "efe4ce06-f4e6-452d-b1d9-4fe4e01041ff",
+  "meta": {
+    "instanceId": "6aa2134c9b5082c878ba6fe91f8f7ca07eea7629a70e234d14ad4103a1458f83"
+  },
+  "id": "t4lIQyeW5dQS0SNp",
+  "tags": []
+}
