@@ -1,13 +1,19 @@
-# n8n Workflows by Guido Rivas
+# n8n Automation Showcase 🚀
 
-Este repositorio contiene mis automatizaciones en n8n, por ejemplo:
+Welcome! I'm Guido Rivas, a Business Process Analyst and Agile-certified professional passionate about automation and digital transformation.
 
-- **Hola Mundo** (`workflows/hello-world.json`): recibe un webhook y responde “Hello, n8n!”  
-- **Import CSV to Sheets** (`workflows/csv-to-sheets.json`): descarga un CSV y lo sube a Google Sheets.  
+This repository contains real-world workflows built with [n8n](https://n8n.io), including:
 
-## Cómo desplegar
+- 📄 Proposal Generator – Automates PDF creation and email delivery
+- 🤖 Chatbot Support – Connects OpenAI with Telegram for customer service
+- 💳 Payment Validator – Verifies transactions and updates CRM
 
-1. Clonar repo  
-2. En tu instancia de n8n:  
-   - Menú → Import → Workflow → Seleccionar el JSON  
-   - ¡Listo!
+## Technologies Used
+- n8n (self-hosted)
+- Google Sheets, Gmail, Telegram, OpenAI
+- JavaScript (Function nodes)
+- Docker (for deployment)
+
+## Contact
+📧 guidoanalistabi@gmail.com
+🔗 https://www.linkedin.com/in/alejandro-2074b8170/
