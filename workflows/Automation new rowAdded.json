@@ -1,0 +1,108 @@
+{
+  "name": "Automation new rowAdded",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Test Workflow \n\nThis Workflow you can add new doc when the action this inputs, for example if one person adds new text into the Google Sheets immediately the automation creates a new Doc in your Google Drive. \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n***By Guido Rivas***\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+        "height": 380,
+        "width": 600,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        -160
+      ],
+      "id": "47f6996a-da82-4696-97c6-e1b9810757f5",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1jHIokKXAzSul7DDaRI8UtBwgLm4WixzcZ1B8f9VqHaM",
+          "mode": "list",
+          "cachedResultName": "Prueba_Guido_Udemy",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jHIokKXAzSul7DDaRI8UtBwgLm4WixzcZ1B8f9VqHaM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jHIokKXAzSul7DDaRI8UtBwgLm4WixzcZ1B8f9VqHaM/edit#gid=0"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "108ac949-e821-4119-921d-8a61011cb64d",
+      "name": "Test",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "fS2XPWrR7dySZW32",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "spreadsheet",
+        "title": "Guido Prueba",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        220,
+        0
+      ],
+      "id": "721395f4-b3d5-4bd7-94ff-c329b4236f3a",
+      "name": "New Doc in my Drive",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "TtJXw8iWKUEnrLwu",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Test": {
+      "main": [
+        [
+          {
+            "node": "New Doc in my Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b8106101-468f-4055-a314-e691ea2c0f0e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "40f52891e639d3e075843c22647a9292181c05e4b64b9e3600ac38252ebf0c22"
+  },
+  "id": "UzRfL38GCj9ePG7z",
+  "tags": []
+}
