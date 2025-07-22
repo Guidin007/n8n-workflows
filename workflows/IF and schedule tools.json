@@ -1,0 +1,211 @@
+{
+  "name": "IF and schedule tools",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "### This Workflow explains what the use of the programming schedule is to send an automatically email when the assistant adds one or more leads with conditional IF. It is the same exercise for the supplier when the time is completed. The most important thing is when the assistant can JSON to personalize the email; it is amazing.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n***By Guido Rivas***\n",
+        "height": 672,
+        "width": 1280,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -128
+      ],
+      "id": "ba3acef2-b55c-4b69-a034-5ccc532cf485",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "608e46ff-375c-4a62-b6eb-150045de6ad5",
+              "leftValue": "={{ $json.Tipo }}",
+              "rightValue": "Cliente",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        512,
+        112
+      ],
+      "id": "23c8d396-e965-49c2-9699-3d14effa5561",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 2
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        112
+      ],
+      "id": "122d8294-4620-4430-aefc-3fa7e3e1d69e",
+      "name": "Schedule "
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1BqFbArxgicJ8bjVsJQN5Zh0drfK5ZxqDolGb3TkH2Hk",
+          "mode": "list",
+          "cachedResultName": "Guido_Base de datos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BqFbArxgicJ8bjVsJQN5Zh0drfK5ZxqDolGb3TkH2Hk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "n8n data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BqFbArxgicJ8bjVsJQN5Zh0drfK5ZxqDolGb3TkH2Hk/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        304,
+        112
+      ],
+      "id": "60d0a37c-8a08-4e5a-b4d6-537cc410c574",
+      "name": "Database_Guido",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "nXJmChc9ZichlkEF",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Correo }}",
+        "subject": "Bienvenid@",
+        "emailType": "text",
+        "message": "=Estimado Cliente {{ $json.Nombre }} , Bienvenido al mundo de la automatizacion. Te queremos como aliado estratgic, atentamente {{ $json.Empresa }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        720,
+        -32
+      ],
+      "id": "3f120113-0e69-4446-8e04-afcccbd658b3",
+      "name": "Leads",
+      "webhookId": "d9c213bb-d6db-4bae-8006-745cf5f8d356",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "hbOTLCUAXq4hXRVR",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Correo }}",
+        "subject": "Bienvenid@",
+        "emailType": "text",
+        "message": "=Bienvenido  {{ $json.Nombre }}   a este maravilloso mundo de la programación con Agent IA esta herramienta que se usa es n8n  Saludos {{ $json.Empresa }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        720,
+        208
+      ],
+      "id": "1ad56ed5-1520-41df-8f6b-48e0dc302c47",
+      "name": "Supplier",
+      "webhookId": "d9c213bb-d6db-4bae-8006-745cf5f8d356",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "hbOTLCUAXq4hXRVR",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Leads",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Supplier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule ": {
+      "main": [
+        [
+          {
+            "node": "Database_Guido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Database_Guido": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "90a9f403-8cc4-4e31-9bb4-4cd7ad5ab22e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b7642650bdfa0479653d75442e10640367ae532a34b561aec239eb2438313ee8"
+  },
+  "id": "YwUhWCprUYceiXYH",
+  "tags": []
+}
