@@ -1,0 +1,180 @@
+{
+  "name": "Filter and schedule tools",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 2
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "122d8294-4620-4430-aefc-3fa7e3e1d69e",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Correo }}",
+        "subject": "Promoción ",
+        "emailType": "text",
+        "message": "Hola amig@ esta es una promoción de prueba en n8n ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        976,
+        0
+      ],
+      "id": "3f120113-0e69-4446-8e04-afcccbd658b3",
+      "name": "Send a message",
+      "webhookId": "d9c213bb-d6db-4bae-8006-745cf5f8d356",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "hbOTLCUAXq4hXRVR",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "85b76d9e-5d9f-4baa-bb5d-4031e11a3422",
+              "leftValue": "={{ $json.Tipo }}",
+              "rightValue": "Cliente",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        624,
+        0
+      ],
+      "id": "267651ef-c649-4e25-94a4-9f9938adfe02",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "content": "### This Workflow explains what is the use of the programming schedule is to send an automatically email when the assistant adds one or more leads, it is the same exercise for the supplier when the time is completed\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n***By Guido Rivas***\n",
+        "height": 368,
+        "width": 1280,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -128
+      ],
+      "id": "ba3acef2-b55c-4b69-a034-5ccc532cf485",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1BqFbArxgicJ8bjVsJQN5Zh0drfK5ZxqDolGb3TkH2Hk",
+          "mode": "list",
+          "cachedResultName": "Guido_Base de datos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BqFbArxgicJ8bjVsJQN5Zh0drfK5ZxqDolGb3TkH2Hk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "n8n data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BqFbArxgicJ8bjVsJQN5Zh0drfK5ZxqDolGb3TkH2Hk/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        304,
+        0
+      ],
+      "id": "60d0a37c-8a08-4e5a-b4d6-537cc410c574",
+      "name": "Get row(s) in sheet",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "nXJmChc9ZichlkEF",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "2ab91e4a-47e2-47fb-9631-4123831f75fe",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b7642650bdfa0479653d75442e10640367ae532a34b561aec239eb2438313ee8"
+  },
+  "id": "YwUhWCprUYceiXYH",
+  "tags": []
+}

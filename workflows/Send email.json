@@ -1,0 +1,111 @@
+{
+  "name": "Send email",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1BqFbArxgicJ8bjVsJQN5Zh0drfK5ZxqDolGb3TkH2Hk",
+          "mode": "list",
+          "cachedResultName": "Guido_Base de datos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BqFbArxgicJ8bjVsJQN5Zh0drfK5ZxqDolGb3TkH2Hk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BqFbArxgicJ8bjVsJQN5Zh0drfK5ZxqDolGb3TkH2Hk/edit#gid=0"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -464,
+        -64
+      ],
+      "id": "a814e008-7937-486c-9601-4a9f8b890389",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "t4Lip61IELsSpFVu",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Correo }}",
+        "subject": "Bienvenid@",
+        "emailType": "text",
+        "message": "=Hola {{ $json.Nombre }}\n\nBienvenido a {{ $json.Empresa }}\n\nAtentamente,\nGerencia Recursos Humanos.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -256,
+        -64
+      ],
+      "id": "39fd961d-f522-4ea7-846f-e7d04fb4e13b",
+      "name": "Send a message",
+      "webhookId": "89d8e630-0279-4309-bd68-cc11079dd9eb",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "hbOTLCUAXq4hXRVR",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Send email \n**This basic workflow sends the email to people registered in the database in Google Sheets automatically when you add the new contact.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n***By Guido Rivas***",
+        "height": 336,
+        "width": 544,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -544,
+        -160
+      ],
+      "id": "67f7a33d-7b9c-4382-8bfa-185e91435f51",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "233d5c76-0fba-4195-bfbb-b08f6362d526",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b7642650bdfa0479653d75442e10640367ae532a34b561aec239eb2438313ee8"
+  },
+  "id": "IKiTPA1Lfcb3n27M",
+  "tags": []
+}
