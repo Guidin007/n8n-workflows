@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Enviar Nombre del Producto</title>
+</head>
+<body>
+    <h2>Ingresa el Nombre del Producto</h2>
+
+    <label for="productName">Nombre del Producto:</label>
+    <input type="text" id="productName" placeholder="Ejemplo: Queso" required>
+    
+    <br><br>
+
+    <button onclick="enviarNombre()">Enviar</button>
+
+    <script>
+        function enviarNombre() {
+            const productName = document.getElementById("productName").value;
+
+            if (!productName) {
+                alert("Por favor, ingresa el nombre del producto.");
+                return;
+            }
+
+            // Codificar el nombre para que sea seguro en la URL
+            const encodedName = encodeURIComponent(productName);
+
+            fetch(`http://localhost:5678/webhook/seleccion?nombre=${encodedName}`, {
+                method: "GET"
+            })
+            .then(response => response.text())
+            .then(data => console.log("Respuesta:", data))
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+</body>
+</html>

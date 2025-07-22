@@ -1,0 +1,161 @@
+{
+  "name": "POST or Get",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "seleccion",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "8006ac3d-a34c-4308-a6d8-7df8e5ef7dc4",
+      "name": "Waiting",
+      "webhookId": "c84835b8-adde-419a-9b09-96833edb801d"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1b38ead3-04ea-46a1-b39a-667a439904cf",
+              "leftValue": "={{ $json.body.rol }}",
+              "rightValue": "cliente",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "293982c7-efc3-4b17-a38e-9c847e1860f0",
+      "name": "¿If Client or not?"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.body.email }}",
+        "subject": "=Welcome  {{ $json.body.rol }}",
+        "emailType": "text",
+        "message": "=Bienvenido a este mundo... {{ $('Waiting').item.json.body.rol }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        480,
+        -160
+      ],
+      "id": "8b225850-1618-40e4-bb88-6ba3e08d36aa",
+      "name": "Client",
+      "webhookId": "6916adf8-ec23-4ce0-837c-49ff46244b2a",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "hbOTLCUAXq4hXRVR",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.body.email }}",
+        "subject": "=Welcome  {{ $json.body.rol }}",
+        "emailType": "text",
+        "message": "=Bienvenido a este mundo... {{ $('Waiting').item.json.body.rol }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        480,
+        48
+      ],
+      "id": "b2410367-67f8-4660-99a1-a449c11321c1",
+      "name": "Supplier",
+      "webhookId": "6916adf8-ec23-4ce0-837c-49ff46244b2a",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "hbOTLCUAXq4hXRVR",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### This workflow uses conditional POST or Get in the first step, which is like connecting to a website to receive information; this option is wonderful because you can choose what is the perfect email depending on the role (Client or Supplier).\n\n \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n***By Guido Rivas***\nDocs: index.html and indexget.html",
+        "height": 496,
+        "width": 896
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -64,
+        -224
+      ],
+      "id": "b2fad2d1-9b83-4886-959a-2a066cc57e14",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Waiting": {
+      "main": [
+        [
+          {
+            "node": "¿If Client or not?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿If Client or not?": {
+      "main": [
+        [
+          {
+            "node": "Client",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Supplier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e32f85f3-65a0-4277-90a2-eec14ac0b21d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b7642650bdfa0479653d75442e10640367ae532a34b561aec239eb2438313ee8"
+  },
+  "id": "JP25UkNHcRNZ1L1P",
+  "tags": []
+}
