@@ -1,0 +1,321 @@
+{
+  "name": "Form exercise",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Casa en condominio",
+        "formDescription": "¿Estas interesado en adquirir una Casa en condominio?",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "¿Cual es tu nombre? ",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "¿Cual es tu correo?",
+              "fieldType": "email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "¿Quieres comprar una casa en conjunto cerrado?",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Si"
+                  },
+                  {
+                    "option": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Cuanto es tu presupuesto",
+              "fieldType": "number",
+              "placeholder": "Menciona el valor en pesos",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "2213f2cb-1b67-4f8c-a877-1d9808680404",
+      "name": "On form submission",
+      "webhookId": "12883e69-cc7f-41fd-b560-161b2de16b45"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2b40b41b-a477-49dd-99a2-a906682b6a72",
+              "leftValue": "={{ $('On form submission').item.json['¿Quieres comprar una casa en conjunto cerrado?'] }}",
+              "rightValue": "=Si",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "a93e9189-a3b8-4555-a5d9-d1c33f5cc1bd",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sendTo": "guidoanalistabi@gmail.com",
+        "subject": "Persona interesada en Comprar casa",
+        "emailType": "text",
+        "message": "=Contactalo se llama {{ $json.Nombre }} y tiene el presupuesto de {{ $('On form submission').item.json['Cuanto es tu presupuesto'] }}, saludos este es su correo {{ $('On form submission').item.json['¿Cual es tu correo?'] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        704,
+        -224
+      ],
+      "id": "e313cdb5-1793-465f-be0d-303e824b484c",
+      "name": "Send a message",
+      "webhookId": "d476d9b5-91ca-4c9e-a167-a71b844e9887",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "hbOTLCUAXq4hXRVR",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "errorMessage": "No tiene presupuesto"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        704,
+        144
+      ],
+      "id": "7e1b4fdd-2694-49b5-996b-26068b151424",
+      "name": "Stop and Error"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1BqFbArxgicJ8bjVsJQN5Zh0drfK5ZxqDolGb3TkH2Hk",
+          "mode": "list",
+          "cachedResultName": "Guido_Base de datos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BqFbArxgicJ8bjVsJQN5Zh0drfK5ZxqDolGb3TkH2Hk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "n8n data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BqFbArxgicJ8bjVsJQN5Zh0drfK5ZxqDolGb3TkH2Hk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Nombre": "={{ $json['¿Cual es tu nombre? '] }}",
+            "Correo": "={{ $json['¿Cual es tu correo?'] }}",
+            "Cuanto es tu presupuesto": "={{ $json['Cuanto es tu presupuesto'] }}",
+            "¿Quieres comprar una casa en conjunto cerrado?": "={{ $json['¿Quieres comprar una casa en conjunto cerrado?'] }}"
+          },
+          "matchingColumns": [
+            "¿Quieres comprar una casa en conjunto cerrado?"
+          ],
+          "schema": [
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Correo",
+              "displayName": "Correo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Tipo",
+              "displayName": "Tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Empresa",
+              "displayName": "Empresa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Edad",
+              "displayName": "Edad",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "¿Quieres comprar una casa en conjunto cerrado?",
+              "displayName": "¿Quieres comprar una casa en conjunto cerrado?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Cuanto es tu presupuesto",
+              "displayName": "Cuanto es tu presupuesto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        208,
+        0
+      ],
+      "id": "0c3f8c4a-22d9-413d-a4f9-84dc832d5641",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "nXJmChc9ZichlkEF",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### This workflow helps the assistant to get data about leads when registering personal information on the form and then update a row in the Google Sheet database and finish with sending the email to the assistant with relevant information about the clients' prospects. The objective is to close the sale.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n***By Guido Rivas***",
+        "height": 624,
+        "width": 1072
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        -304
+      ],
+      "id": "f40ccf0f-36e3-4eda-9f5e-69298edac619",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Stop and Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "2f81696c-6fa6-409f-affc-2683207d636d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b7642650bdfa0479653d75442e10640367ae532a34b561aec239eb2438313ee8"
+  },
+  "id": "RdqcsIDngxZHgMiZ",
+  "tags": []
+}
