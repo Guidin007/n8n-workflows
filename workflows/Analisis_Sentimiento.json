@@ -1,0 +1,225 @@
+{
+  "name": "Analisis_Sentimiento",
+  "nodes": [
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        320,
+        180
+      ],
+      "id": "e7d5c80b-40c6-48d8-96e7-56bb3fbf5ba2",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "XYgBnaWtE2F6flQz",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1ytvUa3JyhljBJ8CSdzIoCFLjzTcrP5WYMrNuv2sL27U",
+          "mode": "list",
+          "cachedResultName": "SentimientoLLMChain ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ytvUa3JyhljBJ8CSdzIoCFLjzTcrP5WYMrNuv2sL27U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ytvUa3JyhljBJ8CSdzIoCFLjzTcrP5WYMrNuv2sL27U/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "4fc71b51-5a24-4213-bce5-9a789dfc751d",
+      "name": "Data_base_Leads",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "d8PuaTilLSSJrEUn",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Analizas el sentimiento de los comentarios, los defines como: Positivos, Negativos o Neutrales. En la respuesta solo me digas si es Positivos,Negativos o Neutral, no añadas mas texto. el comentario es  {{ $json['Comentario Leads'] }}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        220,
+        0
+      ],
+      "id": "0e46d18d-70a5-4c6b-8e6c-da506751d548",
+      "name": "Sentiment analysis"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1ytvUa3JyhljBJ8CSdzIoCFLjzTcrP5WYMrNuv2sL27U",
+          "mode": "list",
+          "cachedResultName": "SentimientoLLMChain ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ytvUa3JyhljBJ8CSdzIoCFLjzTcrP5WYMrNuv2sL27U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ytvUa3JyhljBJ8CSdzIoCFLjzTcrP5WYMrNuv2sL27U/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Sentimiento": "={{ $json.text }}",
+            "Comentario Leads": "={{ $('Data_base_Leads').item.json['Comentario Leads'] }}"
+          },
+          "matchingColumns": [
+            "Comentario Leads"
+          ],
+          "schema": [
+            {
+              "id": "Comentario Leads",
+              "displayName": "Comentario Leads",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Sentimiento",
+              "displayName": "Sentimiento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        580,
+        0
+      ],
+      "id": "488c12d6-ebc2-4667-a3da-dc1874f3b0fc",
+      "name": "Update row in Sentiment sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "QTSB8adZmwkhrQIO",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### This workflow help to departament consumer services to know what the sentiment analysis is for each leads about products and services, and then update the sheet for analysis in the future.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n**Guido_Rivas**",
+        "height": 620,
+        "width": 920,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -120,
+        -160
+      ],
+      "id": "0611346b-3a02-4e1e-b3f8-0ed74bc510d3",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Sentiment analysis",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Data_base_Leads": {
+      "main": [
+        [
+          {
+            "node": "Sentiment analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sentiment analysis": {
+      "main": [
+        [
+          {
+            "node": "Update row in Sentiment sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "8c12518b-25a0-4e59-9e5a-62173a3115bb",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3b0d970c06634e2a55e0637ff1e9589786118792d059e387c7de0863156d272e"
+  },
+  "id": "4ZXXCZ3VKGukNFmQ",
+  "tags": []
+}
