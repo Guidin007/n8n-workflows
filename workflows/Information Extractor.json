@@ -1,0 +1,232 @@
+{
+  "name": "Information Extractor",
+  "nodes": [
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        320,
+        224
+      ],
+      "id": "baeb6149-a347-4d03-a0b3-a98cd73f1194",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "X6YLzvoMof2oW1Pw",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1kUef1jrKWEjdlE6t3SpRF4fS_wBsUtYZaIRNtbmPues",
+          "mode": "list",
+          "cachedResultName": "Campos Filtrados",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kUef1jrKWEjdlE6t3SpRF4fS_wBsUtYZaIRNtbmPues/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Filtro",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kUef1jrKWEjdlE6t3SpRF4fS_wBsUtYZaIRNtbmPues/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Mensaje": "={{ $('Recive email').item.json.text }}",
+            "Nombre": "={{ $json.output.Nombre }}",
+            "Fecha": "={{ $json.output.Fecha }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Mensaje",
+              "displayName": "Mensaje",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Fecha",
+              "displayName": "Fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        624,
+        0
+      ],
+      "id": "a3798a94-d943-4cae-8692-19516841e354",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "adVgx3Mrv3FMAF06",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### This Workflow helps to extract relevant information about specific data that you need, for example Name and date used to information extractor tool on n8n, it´s amazing very useful for company or entrepreneur.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n**By Guido Rivas**",
+        "height": 480,
+        "width": 1008
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -96,
+        -96
+      ],
+      "id": "02a65af5-63eb-4023-b5dc-91331549d58a",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "simple": false,
+        "filters": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "f46ffadd-31c0-4aa8-a1b1-a86297b7c755",
+      "name": "Recive email",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "7LrcX8OTOqmfYoZN",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.text }}",
+        "attributes": {
+          "attributes": [
+            {
+              "name": "Nombre",
+              "description": "El nombre de la persona"
+            },
+            {
+              "name": "Fecha",
+              "description": "La fecha en el texto"
+            }
+          ]
+        },
+        "options": {
+          "systemPromptTemplate": "=You are an expert extraction algorithm.\nOnly extract relevant information from the text.\nIf you do not know the value of an attribute asked to extract, you may omit the attribute's value."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1.2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "5ebbc864-abdd-4d13-b895-70be72c2dffa",
+      "name": "Analize data extractor"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Analize data extractor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recive email": {
+      "main": [
+        [
+          {
+            "node": "Analize data extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analize data extractor": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "76bc7ec5-96ed-4223-bdb7-a89166e4793f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "080939fe9a04fafe307b0676d1010fe0c54049f1b53334ef4573d5f669e69b8f"
+  },
+  "id": "PLkjRT5op4gcja4C",
+  "tags": []
+}
