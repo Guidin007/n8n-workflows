@@ -1,0 +1,397 @@
+{
+  "name": "IA_Advance_Analize Sentiment",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1jgtcZ3kEKi3SfrTIJhwmPWNaR9e2xX7gDsglQRkwLWE",
+          "mode": "list",
+          "cachedResultName": "Texto_Prueba",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jgtcZ3kEKi3SfrTIJhwmPWNaR9e2xX7gDsglQRkwLWE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jgtcZ3kEKi3SfrTIJhwmPWNaR9e2xX7gDsglQRkwLWE/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "0ebad244-4112-4c3e-8707-85a024dcced8",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "0ERGtSThkFY6tkkJ",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.Texto }}",
+        "options": {
+          "categories": "Positivo, Neutral, Negativo"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.sentimentAnalysis",
+      "typeVersion": 1.1,
+      "position": [
+        208,
+        -16
+      ],
+      "id": "0e586677-e2dc-4097-8e54-ff3123bded17",
+      "name": "Sentiment Analysis"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        352,
+        176
+      ],
+      "id": "a5e252bc-be1b-493c-b815-7d78acdccc13",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "nCuBeWJbgon4QZ7K",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1jgtcZ3kEKi3SfrTIJhwmPWNaR9e2xX7gDsglQRkwLWE",
+          "mode": "list",
+          "cachedResultName": "Texto_Prueba",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jgtcZ3kEKi3SfrTIJhwmPWNaR9e2xX7gDsglQRkwLWE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jgtcZ3kEKi3SfrTIJhwmPWNaR9e2xX7gDsglQRkwLWE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Texto": "={{ $('Google Sheets Trigger').item.json.Texto }}",
+            "Resultado": "={{ $json.sentimentAnalysis.category }}"
+          },
+          "matchingColumns": [
+            "Texto"
+          ],
+          "schema": [
+            {
+              "id": "Texto",
+              "displayName": "Texto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Resultado",
+              "displayName": "Resultado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        768,
+        -64
+      ],
+      "id": "b3045a79-a46d-4f51-bc67-3d959715a07c",
+      "name": "Neutral Result",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "adVgx3Mrv3FMAF06",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1jgtcZ3kEKi3SfrTIJhwmPWNaR9e2xX7gDsglQRkwLWE",
+          "mode": "list",
+          "cachedResultName": "Texto_Prueba",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jgtcZ3kEKi3SfrTIJhwmPWNaR9e2xX7gDsglQRkwLWE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jgtcZ3kEKi3SfrTIJhwmPWNaR9e2xX7gDsglQRkwLWE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Texto": "={{ $('Google Sheets Trigger').item.json.Texto }}",
+            "Resultado": "={{ $json.sentimentAnalysis.category }}"
+          },
+          "matchingColumns": [
+            "Texto"
+          ],
+          "schema": [
+            {
+              "id": "Texto",
+              "displayName": "Texto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Resultado",
+              "displayName": "Resultado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        768,
+        208
+      ],
+      "id": "6cc81605-182e-4cc5-bebe-fe2df4aba2e8",
+      "name": "Negative Result",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "adVgx3Mrv3FMAF06",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## This is a powerful workflow that analyzes the sentiment (positive, negative, neutral) of different people when they buy one or more products or services in the mall.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n**By Guido Rivas** ",
+        "height": 992,
+        "width": 1552,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -336,
+        -448
+      ],
+      "id": "dc851905-cb90-4910-b560-8d56c08ebd2f",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1jgtcZ3kEKi3SfrTIJhwmPWNaR9e2xX7gDsglQRkwLWE",
+          "mode": "list",
+          "cachedResultName": "Texto_Prueba",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jgtcZ3kEKi3SfrTIJhwmPWNaR9e2xX7gDsglQRkwLWE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jgtcZ3kEKi3SfrTIJhwmPWNaR9e2xX7gDsglQRkwLWE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Texto": "={{ $('Google Sheets Trigger').item.json.Texto }}",
+            "Resultado": "={{ $json.sentimentAnalysis.category }}"
+          },
+          "matchingColumns": [
+            "Texto"
+          ],
+          "schema": [
+            {
+              "id": "Texto",
+              "displayName": "Texto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Resultado",
+              "displayName": "Resultado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        784,
+        -288
+      ],
+      "id": "75def563-3c52-4102-b2ab-8ed53b9362e0",
+      "name": "Positive Result",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "adVgx3Mrv3FMAF06",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Sentiment Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Sentiment Analysis",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sentiment Analysis": {
+      "main": [
+        [
+          {
+            "node": "Positive Result",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Neutral Result",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Negative Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b1943811-62b6-4a88-b487-32dbac740c1b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "080939fe9a04fafe307b0676d1010fe0c54049f1b53334ef4573d5f669e69b8f"
+  },
+  "id": "GJdtWczNumT6Y14Z",
+  "tags": []
+}
