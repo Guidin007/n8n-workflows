@@ -1,0 +1,68 @@
+{
+  "name": "Notion",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a9088881-f0af-4985-aac7-ffe3e52bb179",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": {
+          "__rl": true,
+          "value": "245a992f-6cf9-805c-b383-ee2cf95a0f57",
+          "mode": "list",
+          "cachedResultName": "n8n with notion",
+          "cachedResultUrl": "https://www.notion.so/245a992f6cf9805cb383ee2cf95a0f57"
+        },
+        "title": "Prueba n8n with Notion",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "2cc2894e-d305-4c9f-875b-3d21e6e443f9",
+      "name": "Create a database page",
+      "credentials": {
+        "notionApi": {
+          "id": "TF3DmzcTz5hVYYH4",
+          "name": "Notion account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Create a database page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "80ed6ed5-1e4a-486f-b27f-da3e91313891",
+  "meta": {
+    "instanceId": "080939fe9a04fafe307b0676d1010fe0c54049f1b53334ef4573d5f669e69b8f"
+  },
+  "id": "TnxkaEIqTRvAWika",
+  "tags": []
+}
