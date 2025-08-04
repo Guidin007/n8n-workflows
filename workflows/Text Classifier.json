@@ -1,0 +1,484 @@
+{
+  "name": "Text Classifier",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8",
+          "mode": "list",
+          "cachedResultName": "Resumen IA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 145675735,
+          "mode": "list",
+          "cachedResultName": "Clasificador",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8/edit#gid=145675735"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        32
+      ],
+      "id": "fe0a27c5-488f-403e-9cbc-eab59b66d98a",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "0ERGtSThkFY6tkkJ",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.Texto }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "=programación ",
+              "description": "Texto sobre código, lenguajes de programación y similares"
+            },
+            {
+              "category": "Musica"
+            },
+            {
+              "category": "Marketing ",
+              "description": "texto sobre estrategias de marketing "
+            },
+            {
+              "category": "General",
+              "description": "textos que no estén en las otras categorías"
+            }
+          ]
+        },
+        "options": {
+          "systemPromptTemplate": "Please classify the text provided by the user into one of the following categories: {categories}, and use the provided formatting instructions below. Don't explain, and only output the json."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "f3ed5275-661a-4cf6-844d-18c34adc7256",
+      "name": "Text Classifier"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        352,
+        240
+      ],
+      "id": "d12f6438-f258-4fab-9b2e-20621bfb1ffb",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "nCuBeWJbgon4QZ7K",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8",
+          "mode": "list",
+          "cachedResultName": "Resumen IA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 145675735,
+          "mode": "list",
+          "cachedResultName": "Clasificador",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8/edit#gid=145675735"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Texto": "={{ $('Google Sheets Trigger').item.json.Texto }}",
+            "Tipo": "programación "
+          },
+          "matchingColumns": [
+            "Texto"
+          ],
+          "schema": [
+            {
+              "id": "Texto",
+              "displayName": "Texto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Tipo",
+              "displayName": "Tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        784,
+        -272
+      ],
+      "id": "48040bc8-dad9-4ffc-acdd-f47a6cedf950",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "adVgx3Mrv3FMAF06",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8",
+          "mode": "list",
+          "cachedResultName": "Resumen IA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 145675735,
+          "mode": "list",
+          "cachedResultName": "Clasificador",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8/edit#gid=145675735"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Texto": "={{ $('Google Sheets Trigger').item.json.Texto }}",
+            "Tipo": "Musica"
+          },
+          "matchingColumns": [
+            "Texto"
+          ],
+          "schema": [
+            {
+              "id": "Texto",
+              "displayName": "Texto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Tipo",
+              "displayName": "Tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        784,
+        -80
+      ],
+      "id": "d357eb02-0d20-4e28-a761-2ceb799bec59",
+      "name": "Update row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "adVgx3Mrv3FMAF06",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8",
+          "mode": "list",
+          "cachedResultName": "Resumen IA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 145675735,
+          "mode": "list",
+          "cachedResultName": "Clasificador",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8/edit#gid=145675735"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Texto": "={{ $('Google Sheets Trigger').item.json.Texto }}",
+            "Tipo": "Marketing"
+          },
+          "matchingColumns": [
+            "Texto"
+          ],
+          "schema": [
+            {
+              "id": "Texto",
+              "displayName": "Texto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Tipo",
+              "displayName": "Tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        784,
+        112
+      ],
+      "id": "35e221fe-562c-420a-82ff-74a0a47a36dc",
+      "name": "Update row in sheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "adVgx3Mrv3FMAF06",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8",
+          "mode": "list",
+          "cachedResultName": "Resumen IA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 145675735,
+          "mode": "list",
+          "cachedResultName": "Clasificador",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8/edit#gid=145675735"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Texto": "={{ $('Google Sheets Trigger').item.json.Texto }}",
+            "Tipo": "General"
+          },
+          "matchingColumns": [
+            "Texto"
+          ],
+          "schema": [
+            {
+              "id": "Texto",
+              "displayName": "Texto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Tipo",
+              "displayName": "Tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        784,
+        320
+      ],
+      "id": "358440b3-b439-4c1e-bb87-ddb7a3f21044",
+      "name": "Update row in sheet3",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "adVgx3Mrv3FMAF06",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update row in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update row in sheet3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3cc38302-e340-46bc-8cf7-60da77fc9915",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "080939fe9a04fafe307b0676d1010fe0c54049f1b53334ef4573d5f669e69b8f"
+  },
+  "id": "t4p6hADNPw0gvRBo",
+  "tags": []
+}
