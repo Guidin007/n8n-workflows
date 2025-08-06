@@ -1,0 +1,152 @@
+{
+  "name": "Code Java",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8",
+          "mode": "list",
+          "cachedResultName": "Resumen IA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 58082828,
+          "mode": "list",
+          "cachedResultName": "Correo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8/edit#gid=58082828"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "b3175406-5202-420d-b8c1-54700d40adb8",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "0ERGtSThkFY6tkkJ",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\n// Toma la listaNum del ítem que está entrando\nlet contador=1;\nfor (const item of $input.all()) {\n  item.json.myNewField = contador++;\n}\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "9c51b6f1-bdcb-40c9-bd07-7dea3aaf3787",
+      "name": "Code"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        240
+      ],
+      "id": "17899f92-0171-4433-8620-2c3eac315aee",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "05c7df74-7bf1-4dd8-86da-a00be8d955c8",
+              "name": "listaNum",
+              "value": "[1,2,3,4]",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        192,
+        240
+      ],
+      "id": "e8940db3-03e6-4ae3-8dad-e0047db21212",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\n let listaOriginal=$input.first().json.listaNum; \nlet listaNew=listaOriginal.map(i=>i+1);\n\nreturn [{json: {listaNew}}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        240
+      ],
+      "id": "376e5383-34cd-452d-8dc0-92542a0a49be",
+      "name": "Code1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "aba2e1a4-d3d4-464c-82e8-1631d7c1ee81",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "080939fe9a04fafe307b0676d1010fe0c54049f1b53334ef4573d5f669e69b8f"
+  },
+  "id": "gFnUhM0nRK2zNgVJ",
+  "tags": []
+}
