@@ -1,0 +1,412 @@
+{
+  "name": "Data transformation",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $json.internalDate }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        416,
+        -128
+      ],
+      "id": "c48577c4-6339-4e75-8b63-6a58ed790233",
+      "name": "Date & Time"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -32,
+        -224
+      ],
+      "id": "65884bd3-ce84-4a06-8ff4-5b02bb534214",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "7LrcX8OTOqmfYoZN",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e25d7f69-b397-4720-a174-cfc3c691eae6",
+              "name": "¿Eres IA Agents?",
+              "value": "={{ $json.snippet.concat() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        192,
+        -128
+      ],
+      "id": "88b17d3d-4dbd-486a-84cd-c2e5d482fb52",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "content": "## Use Data Transformation tools to practice adding different options to get or spare information in wherever database in Google Sheets, for example  If you have 5 items, you can separate for each item in the same database; it is amazing and powerful when you need to work with specific information.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n## By Guido Rivas",
+        "height": 1600,
+        "width": 1344,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        -464
+      ],
+      "id": "36b02393-4d44-4363-b0a6-1a1a9952b4d9",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "07eec782-4768-4bba-99fc-12665791192c",
+              "leftValue": "={{ $json.labels[0].id }}",
+              "rightValue": "INBOX",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        192,
+        -320
+      ],
+      "id": "4c0422f0-517f-49f8-b5be-b4613ad31982",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8",
+          "mode": "list",
+          "cachedResultName": "Resumen IA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 58082828,
+          "mode": "list",
+          "cachedResultName": "Correo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8/edit#gid=58082828"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        288
+      ],
+      "id": "4d03dafb-f36d-4024-923b-2fe157e99ee4",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "0ERGtSThkFY6tkkJ",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        192,
+        96
+      ],
+      "id": "f39ee1ec-5714-4a2f-b8a9-ef93727614b8",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 2,
+      "position": [
+        192,
+        288
+      ],
+      "id": "dc50d560-1133-43cc-867d-7bb0e4ff29ce",
+      "name": "Remove Duplicates"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        704
+      ],
+      "id": "e4d57af9-a92d-4399-8ade-18a171d09160",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "Nombre",
+        "include": "={{ $json.Nombre[0] }}{{ $json.Nombre[1] }}{{ $json.Nombre[2] }}{{ $json.Nombre[3] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        416,
+        704
+      ],
+      "id": "2f8dfdb6-50c4-4699-b78a-30a21d45cdf6",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b9d7b78f-3739-435a-a3c0-7ebdd0c7de9b",
+              "name": "Nombre",
+              "value": "[\"Guido\", \"Alejandro\", \"Angel\", \"Joao\"]",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        192,
+        704
+      ],
+      "id": "8ec4f176-1429-4e51-a280-0749d1c3acf7",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "['Correo ']",
+        "include": "selectedOtherFields",
+        "fieldsToInclude": "['Prueba 3']",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        192,
+        480
+      ],
+      "id": "52ec91d8-eff1-4dd5-adcf-7c27aa24983f",
+      "name": "Split Out1"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8",
+          "mode": "list",
+          "cachedResultName": "Resumen IA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 58082828,
+          "mode": "list",
+          "cachedResultName": "Correo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8/edit#gid=58082828"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        928
+      ],
+      "id": "39d810dd-26d2-4f93-9505-2a0ff6e1d35d",
+      "name": "Google Sheets Trigger1",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "0ERGtSThkFY6tkkJ",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "Información de compañia",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        192,
+        928
+      ],
+      "id": "6311dc8b-8b36-40a0-845f-75e57e9e95c5",
+      "name": "Aggregate"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Date & Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        []
+      ]
+    },
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Remove Duplicates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        []
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        []
+      ]
+    },
+    "Google Sheets Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "5e17d87d-2b11-4aa9-b148-1558c59fd270",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "080939fe9a04fafe307b0676d1010fe0c54049f1b53334ef4573d5f669e69b8f"
+  },
+  "id": "M2gG0VjAL3zA7o0q",
+  "tags": []
+}
