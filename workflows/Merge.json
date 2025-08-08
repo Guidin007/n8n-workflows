@@ -1,0 +1,164 @@
+{
+  "name": "Merge",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c7f95e42-c5b1-43e6-964a-2072fd05c36f",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1O0CAvqLcuYh858kuR_jcrzvJD9IPR2q769lALAh5dok",
+          "mode": "list",
+          "cachedResultName": "Copia de Resumen IA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1O0CAvqLcuYh858kuR_jcrzvJD9IPR2q769lALAh5dok/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 58082828,
+          "mode": "list",
+          "cachedResultName": "Correo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1O0CAvqLcuYh858kuR_jcrzvJD9IPR2q769lALAh5dok/edit#gid=58082828"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        240,
+        176
+      ],
+      "id": "7e3947fb-0dbf-4733-90f9-b09893676eb2",
+      "name": "Copia de Resumen IA",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "IptaMN6Z42F7HxIo",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8",
+          "mode": "list",
+          "cachedResultName": "Resumen IA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 58082828,
+          "mode": "list",
+          "cachedResultName": "Correo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Bn5eCWHxxJmJnulcCi5jfJIDYuImKc_Noi_x85vwNk8/edit#gid=58082828"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        240,
+        -224
+      ],
+      "id": "a21666d5-c646-45d7-be9c-95c425387e85",
+      "name": "Resumen IA1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "IptaMN6Z42F7HxIo",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "fieldsToMatchString": "['Correo ']",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        528,
+        0
+      ],
+      "id": "340a166d-db71-4bcb-a4ce-820e91d789fe",
+      "name": "Unión de Resumen IA"
+    },
+    {
+      "parameters": {
+        "content": "## Merge Option is a powerful app to use when you have a lot of information in the Sheets and you need to merge both data in one Sheet.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n**Guido Rivas** ",
+        "height": 736,
+        "width": 1024
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -208,
+        -368
+      ],
+      "id": "852f11c4-9c84-439f-acce-a01ec1bf49d3",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Resumen IA1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Copia de Resumen IA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Copia de Resumen IA": {
+      "main": [
+        [
+          {
+            "node": "Unión de Resumen IA",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Resumen IA1": {
+      "main": [
+        [
+          {
+            "node": "Unión de Resumen IA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "018d10bf-9f4a-44e6-8709-fda3ed463d40",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "080939fe9a04fafe307b0676d1010fe0c54049f1b53334ef4573d5f669e69b8f"
+  },
+  "id": "FDaMfW0qDHuTzhu7",
+  "tags": []
+}
