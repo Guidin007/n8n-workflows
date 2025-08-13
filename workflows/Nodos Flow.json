@@ -1,0 +1,328 @@
+{
+  "name": "Nodos Flow",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1O0CAvqLcuYh858kuR_jcrzvJD9IPR2q769lALAh5dok",
+          "mode": "list",
+          "cachedResultName": "Copia de Resumen IA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1O0CAvqLcuYh858kuR_jcrzvJD9IPR2q769lALAh5dok/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 58082828,
+          "mode": "list",
+          "cachedResultName": "Correo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1O0CAvqLcuYh858kuR_jcrzvJD9IPR2q769lALAh5dok/edit#gid=58082828"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -336,
+        0
+      ],
+      "id": "68768f05-20fb-4658-b702-527caf83bd3d",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "0ERGtSThkFY6tkkJ",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json['Correo '] }}",
+                    "rightValue": "guidon8n@gmail.com",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "19ab9501-a1fb-478a-a32a-fcafc060bbf5"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Email 1"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b09375ca-605c-489b-acd1-950dda2f1f3d",
+                    "leftValue": "={{ $json['Correo '] }}",
+                    "rightValue": "31312guidoanalistabi@gmail.com",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Email 2"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        624,
+        0
+      ],
+      "id": "0e24e60e-05d8-4e42-baa2-fb47888f9b13",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1wDY4hxK-EzSCsT7-gVY3-JLFvhNBcSE8H4RIJgvLqI4",
+          "mode": "list",
+          "cachedResultName": "Sub Workflow ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wDY4hxK-EzSCsT7-gVY3-JLFvhNBcSE8H4RIJgvLqI4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wDY4hxK-EzSCsT7-gVY3-JLFvhNBcSE8H4RIJgvLqI4/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        880,
+        -160
+      ],
+      "id": "fbeb8698-4c60-4a7b-823f-db00563ab0b2",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "IptaMN6Z42F7HxIo",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "17N2DPNkmJBhV93KyExBlMDD6v4gnGDafnjB0xaL-Ibc",
+          "mode": "list",
+          "cachedResultName": "Sub_Workflow 7895",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17N2DPNkmJBhV93KyExBlMDD6v4gnGDafnjB0xaL-Ibc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17N2DPNkmJBhV93KyExBlMDD6v4gnGDafnjB0xaL-Ibc/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        880,
+        128
+      ],
+      "id": "0c6eeb0e-1569-4ba7-9bb5-dda40a5bfa99",
+      "name": "Get row(s) in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "IptaMN6Z42F7HxIo",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mergeByFields": {
+          "values": [
+            {
+              "field1": "Nombre",
+              "field2": "Nombre"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.compareDatasets",
+      "typeVersion": 2.3,
+      "position": [
+        1136,
+        -48
+      ],
+      "id": "9ee4327a-0ff7-447b-8ade-b5b4af8984eb",
+      "name": "Compare Datasets"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "25a5511b-e27e-40a8-93c5-49cc94854e06",
+              "leftValue": "={{ $json['Correo '] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        32,
+        0
+      ],
+      "id": "be8c6ef2-634b-4ec2-9585-196cb09ef3f3",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "errorMessage": "El correo no esta registrado"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        320,
+        -176
+      ],
+      "id": "aa6a1df2-e5e3-4804-8a92-8ac95aac17c0",
+      "name": "Stop and Error"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Compare Datasets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Compare Datasets",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Stop and Error",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0ae75b8f-4451-4dd2-89d2-a631845e561a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "080939fe9a04fafe307b0676d1010fe0c54049f1b53334ef4573d5f669e69b8f"
+  },
+  "id": "N6t0Jya55CLgd6xG",
+  "tags": []
+}
