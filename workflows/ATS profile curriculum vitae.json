@@ -1,0 +1,485 @@
+{
+  "name": "Project CV with Airtable",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Vacantes disponibles",
+        "formDescription": "Postulación al puesto de trabajo",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "¿Cual es tu nombre y apellidos?",
+              "placeholder": "Escribe por favor tu nombre completo",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "¿A qué cargo te estas postulando?",
+              "placeholder": "Desarrollador, Analista de BI, Administrativo, Operativo.",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Adjunte Hoja de vida (.pdf)",
+              "fieldType": "file",
+              "acceptFileTypes": "Por favor peso máximo 2MB y en formato .pdf",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "ccf865b3-b59c-4a5f-9b3c-5fcbfd8f20e5",
+      "name": "On form submission",
+      "webhookId": "859d2137-4729-4ba4-b1f8-135402784c1e"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "Adjunte_Hoja_de_vida___pdf_",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "30d17ff8-8374-4fbf-97d1-ea636cde9a3e",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=La hoja de vida del candidato es: {{ $json.text }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Instrucción: A partir del texto completo de la hoja de vida del candidato, identifica y resume la experiencia, habilidades, logros y certificaciones más relevantes para el puesto de {{ $('On form submission').item.json['¿A qué cargo te estas postulando?'] }}.  Tareas: 1. Extraer solo la información relevante para el rol indicado, priorizando logros cuantificables y experiencia directamente relacionada con las funciones de {{ $('On form submission').item.json['¿A qué cargo te estas postulando?'] }}. 2. Redactar una carta de presentación en un máximo de 2–3 párrafos, en español, con tono formal, profesional y orientado a resultados. 3. Adaptar la carta para que pueda ser copiada en un formulario en línea sin formato especial.  Restricciones: - No inventar datos que no estén en el CV. - Mantener una redacción clara y precisa. - Evitar lenguaje redundante o coloquial.  Entrada: CV del candidato: {{ $('On form submission').item.json['Adjunte Hoja de vida (.pdf)'][0].filename }}  Salida esperada: Sección 1: Lista de información extraída (experiencia, habilidades, logros, certificaciones) en viñetas. Sección 2: Carta de presentación final en texto corrido."
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        416,
+        0
+      ],
+      "id": "e5319901-5cbd-4b22-9a33-c0ea7a6909c5",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        352,
+        208
+      ],
+      "id": "ee3f1a57-fd31-4c84-a6eb-53e92407e036",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "nCuBeWJbgon4QZ7K",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n\t\"type\": \"object\",\n\t\"properties\": {\n\t\t\"Nombre\": {\"type\": \"string\"},\n\t\t\"Linkedin\": {\"type\": \"string\"},\n        \"Correo\": {\"type\": \"string\"},\n        \"Celular\": {\"type\": \"string\"},\n        \"Educación\": {\"type\": \"string\"},\n        \"Habilidades y tecnología\": {\"type\": \"string\"},\n        \"Años de experiencia\": {\"type\": \"string\"}\n\t}\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        640,
+        192
+      ],
+      "id": "9e26555a-f65f-4797-b47e-293fc1f48f11",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1FI2lbgiMogMmSIZ_Hc8kcD3Uky2SbhAmmc0cC7Iueb8",
+          "mode": "list",
+          "cachedResultName": "Hojas de Vida",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FI2lbgiMogMmSIZ_Hc8kcD3Uky2SbhAmmc0cC7Iueb8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja de Vida",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FI2lbgiMogMmSIZ_Hc8kcD3Uky2SbhAmmc0cC7Iueb8/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "¿Cual es tu nombre y apellidos?": "={{ $json.output.Nombre }}",
+            "¿A qué cargo te estas postulando?": "={{ $('On form submission').item.json['¿A qué cargo te estas postulando?'] }}",
+            "Linkedin": "={{ $json.output.Linkedin }}",
+            "Correo": "={{ $json.output.Correo }}",
+            "Educación": "={{ $json.output['Educación'] }}",
+            "Habilidades y Tecnologia": "={{ $json.output['Habilidades y tecnología'] }}",
+            "Años de Experiencia": "={{ $json.output['Años de experiencia'] }}"
+          },
+          "matchingColumns": [
+            "¿Cual es tu nombre y apellidos?"
+          ],
+          "schema": [
+            {
+              "id": "¿Cual es tu nombre y apellidos?",
+              "displayName": "¿Cual es tu nombre y apellidos?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "¿A qué cargo te estas postulando?",
+              "displayName": "¿A qué cargo te estas postulando?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Linkedin",
+              "displayName": "Linkedin",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Correo",
+              "displayName": "Correo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Educación",
+              "displayName": "Educación",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Habilidades y Tecnologia",
+              "displayName": "Habilidades y Tecnologia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Años de Experiencia",
+              "displayName": "Años de Experiencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        1040,
+        496
+      ],
+      "id": "eb317e22-572b-4851-8a0c-2559fc5d58a1",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "IptaMN6Z42F7HxIo",
+          "name": "Google Sheets account 2"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appns2hi311iy4fV0",
+          "mode": "list",
+          "cachedResultName": "Hojas de Vida_n8n",
+          "cachedResultUrl": "https://airtable.com/appns2hi311iy4fV0"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblyDZOc2Hu6QN9GI",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/appns2hi311iy4fV0/tblyDZOc2Hu6QN9GI"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "¿Cual es tu nombre y apellidos?": "={{ $json.output.Nombre }}",
+            "¿A qué cargo te estas postulando?": "={{ $('On form submission').item.json['¿A qué cargo te estas postulando?'] }}",
+            "Linkedin": "={{ $json.output.Linkedin }}",
+            "Correo": "={{ $json.output.Correo }}",
+            "Educación": "={{ $json.output['Educación'] }}",
+            "Habilidades y Tecnología": "={{ $json.output['Habilidades y tecnología'] }}",
+            "Años de Experiencia": "={{ $json.output['Años de experiencia'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "¿Cual es tu nombre y apellidos?",
+              "displayName": "¿Cual es tu nombre y apellidos?",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "¿A qué cargo te estas postulando?",
+              "displayName": "¿A qué cargo te estas postulando?",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Linkedin",
+              "displayName": "Linkedin",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Correo",
+              "displayName": "Correo",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Educación",
+              "displayName": "Educación",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Habilidades y Tecnología",
+              "displayName": "Habilidades y Tecnología",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Años de Experiencia",
+              "displayName": "Años de Experiencia",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Hoja de Vida",
+              "displayName": "Hoja de Vida",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Attachment Summary",
+              "displayName": "Attachment Summary",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        816,
+        0
+      ],
+      "id": "dc666139-994d-4fee-977b-3aee1331d875",
+      "name": "Create a record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "iux0F601eCkAHz7c",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## ATS Profile job Vs Candidate \n### This workflow helps to receive persons to analyze what is the best candidate for a job is like like a scanner profile and use to only relevant information. For example: name, job, LinkedIn profile, skills and technologies, years of experience. It´s like to resume to selection.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n**Guido Rivas** ",
+        "height": 496,
+        "width": 1200
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -64,
+        -112
+      ],
+      "id": "22f0d152-85d2-445d-9c6b-a6699be75972",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "66cf4122-eafd-497d-ae79-f738326a2d2c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "080939fe9a04fafe307b0676d1010fe0c54049f1b53334ef4573d5f669e69b8f"
+  },
+  "id": "AlAZBmgzoQJq4hkt",
+  "tags": []
+}
