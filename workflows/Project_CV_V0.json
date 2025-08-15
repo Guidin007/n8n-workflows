@@ -1,0 +1,170 @@
+{
+  "name": "Project CV",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Vacantes disponibles",
+        "formDescription": "Postulación al puesto de trabajo",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "¿Cual es tu nombre y apellidos?",
+              "placeholder": "Escribe por favor tu nombre completo",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Adjunte Hoja de vida (.pdf)",
+              "fieldType": "file",
+              "acceptFileTypes": ".pdf",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "ccf865b3-b59c-4a5f-9b3c-5fcbfd8f20e5",
+      "name": "On form submission",
+      "webhookId": "859d2137-4729-4ba4-b1f8-135402784c1e"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "Adjunte_Hoja_de_vida___pdf_",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "30d17ff8-8374-4fbf-97d1-ea636cde9a3e",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=La hoja de vida de la persona que se vincula es:  {{ $json.text }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Extraiga información relevante del CV del candidato para el puesto de Analista de Negocios. Al redactar la carta de presentación, utilice solo unos pocos párrafos, en un tono formal y profesional, ya que se introducirá en un formulario en línea."
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        416,
+        0
+      ],
+      "id": "e5319901-5cbd-4b22-9a33-c0ea7a6909c5",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        352,
+        208
+      ],
+      "id": "ee3f1a57-fd31-4c84-a6eb-53e92407e036",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "nCuBeWJbgon4QZ7K",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n\t\"type\": \"object\",\n\t\"properties\": {\n\t\t\"Nombre\": {\"type\": \"string\"},\n\t\t\"Dirección\": {\"type\": \"string\"},\n        \"Correo\": {\"type\": \"string\"},\n        \"Celular\": {\"type\": \"string\"},\n        \"Educación\": {\"type\": \"string\"}\n        \"Habilidades y Tecnología\": {\"type\": \"string\"},\n\t\t\"Años de experiencia\": {\"type\": \"string\"},\n\t}\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        560,
+        208
+      ],
+      "id": "9e26555a-f65f-4797-b47e-293fc1f48f11",
+      "name": "Structured Output Parser"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "5926083f-ce14-4390-912d-0a6da21d4894",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "080939fe9a04fafe307b0676d1010fe0c54049f1b53334ef4573d5f669e69b8f"
+  },
+  "id": "AlAZBmgzoQJq4hkt",
+  "tags": []
+}
