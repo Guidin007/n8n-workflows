@@ -1,0 +1,242 @@
+{
+  "name": "Telegram Guidon8n_Bot",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        112,
+        0
+      ],
+      "id": "219fc465-bd14-4f00-8293-add5e4945a3f",
+      "name": "Telegram Trigger",
+      "webhookId": "af41ccad-6f5a-4ca5-a7cd-638ded3edb27",
+      "credentials": {
+        "telegramApi": {
+          "id": "Wjh212myah553fM4",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Responde a este mensaje {{ $('Telegram Trigger').item.json.message.text }}",
+        "options": {
+          "systemMessage": "=Eres un experto en temas relacionados al deporte, como el Futbol"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        464,
+        0
+      ],
+      "id": "65932197-b4e1-4e8c-8a08-7e999fdf5ae9",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        400,
+        176
+      ],
+      "id": "ab3731fb-e4e5-43cc-90c4-2ab62e6e868c",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "nCuBeWJbgon4QZ7K",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Telegram Trigger').item.json.message.from.id }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        544,
+        336
+      ],
+      "id": "31bd5d70-b211-4121-8405-2752dd814488",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+      "typeVersion": 1,
+      "position": [
+        656,
+        176
+      ],
+      "id": "9c24f916-c177-4bf8-a575-84a37c94373a",
+      "name": "Wikipedia"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        992,
+        0
+      ],
+      "id": "14a6bd1c-9521-4d8e-95d3-e149bea75696",
+      "name": "Send a text message",
+      "webhookId": "3be24e4e-760b-420a-bc53-6591dbd7ac91",
+      "credentials": {
+        "telegramApi": {
+          "id": "Wjh212myah553fM4",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "El Bot, recibe mensaje por telegram, que seria la primera entrada como disparador.\n\n**By Guido Rivas**\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        64,
+        -176
+      ],
+      "id": "e1d912fd-5100-4548-9f2f-5cd4d8b87fc7",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "**El Agente IA, en este caso escucha la petición, consulta en la herramienta que escogimos que fue Wikipedia para responder a la pregunta en telegram, posterior guarda el registro de la conversación en este caso deje por defecto 5 interacciones.**\n\n**By Guido Rivas**\n",
+        "width": 416,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        368,
+        -176
+      ],
+      "id": "57655345-7e20-484f-878d-515bb8d43331",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "El Bot, entrega el mensaje por telegram, \n**By Guido Rivas**\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        928,
+        -192
+      ],
+      "id": "49f80a2b-c998-414e-8463-20a59c981a0f",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "**Nota:** Adicional se integra con Ngrok para que se pueda comunicar con telegram (https://t.me/Guidon8n_bot) y deje de ser un local Host\n\n**By Guido Rivas**\n",
+        "height": 144,
+        "width": 416,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        400,
+        480
+      ],
+      "id": "6a16e284-6368-492b-b84b-9a119b23fa16",
+      "name": "Sticky Note3"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "ea7bf161-c46a-48fe-9f89-ca04742c04c3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "080939fe9a04fafe307b0676d1010fe0c54049f1b53334ef4573d5f669e69b8f"
+  },
+  "id": "kVGCHqsRK4Gu4SCj",
+  "tags": []
+}
