@@ -394,15 +394,15 @@
     },
     {
       "parameters": {
-        "content": "## ATS Profile job Vs Candidate \n### This workflow helps to receive persons to analyze what is the best candidate for a job is like like a scanner profile and use to only relevant information. For example: name, job, LinkedIn profile, skills and technologies, years of experience. It´s like to resume to selection.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n**Guido Rivas** ",
-        "height": 496,
-        "width": 1200
+        "content": "## ATS Profile job Vs Candidate \n### This workflow helps to receive persons to analyze what is the best candidate for a job is like like a scanner profile and use to only relevant information. For example: name, job, LinkedIn profile, skills and technologies, years of experience. It´s like to resume to selection.\n👉 Así quedó mi flujo:\n 1️⃣ On form submission: Recolectar datos básicos + CV.\n 2️⃣ Extract from File: Leer el PDF y extraer info.\n 3️⃣ Basic LLM Chain: Con un buen prompt, organiza y resume los datos clave.\n 4️⃣ Create a record: Guardarlo en la base de datos que quieras.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n**Guido Rivas** ",
+        "height": 672,
+        "width": 1312
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -64,
-        -112
+        -160,
+        -240
       ],
       "id": "22f0d152-85d2-445d-9c6b-a6699be75972",
       "name": "Sticky Note"
@@ -475,7 +475,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "66cf4122-eafd-497d-ae79-f738326a2d2c",
+  "versionId": "bbb025d3-8940-4ef2-8340-f575e009dc6f",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "080939fe9a04fafe307b0676d1010fe0c54049f1b53334ef4573d5f669e69b8f"
