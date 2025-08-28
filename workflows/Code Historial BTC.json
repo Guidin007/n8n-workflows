@@ -1,0 +1,99 @@
+{
+  "name": "Historial BTC",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "67d385d1-3d18-4dc1-a24b-b283852642e6",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=30",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 2,
+              "batchInterval": 10000
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "c8f40f3b-494d-4f3c-b245-31fe9203e967",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\n// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nconst prices = items[0].json.prices; // Obtén los precios de la respuesta\n\n// Convierte los timestamps a fechas legibles\nconst processedData = prices.map(price => {\n  const timestamp = new Date(price[0]); // Toma el primer valor como timestamp\n  const date = timestamp.toLocaleString(); // Convierte a fecha legible\n  const priceInUSD = price[1]; // El segundo valor es el precio en USD\n  return { date, priceInUSD }; // Devuelve un objeto con la fecha y el precio\n});\n\nreturn processedData.map(item => ({\n  json: item\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "0c786e97-e94e-4340-ac37-d0571e34bace",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "content": "This workflow helps to search the price history of Bitcoin, working with the other workflow \"Cripto Bitcoin V2\" and send the information when received that consult.\n\n**Guido Rivas**",
+        "width": 688
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -192
+      ],
+      "id": "382456bd-9469-43de-b445-cd7b179242b4",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a674bcef-8ba2-435e-80c0-16f95055e6dd",
+  "meta": {
+    "instanceId": "080939fe9a04fafe307b0676d1010fe0c54049f1b53334ef4573d5f669e69b8f"
+  },
+  "id": "61hxyZ1d7girjuHl",
+  "tags": []
+}
