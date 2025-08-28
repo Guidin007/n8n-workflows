@@ -1,0 +1,192 @@
+{
+  "name": "Cripto Bitcoin V1",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hola Soy tu Agente sobre Bitcoin ",
+        "options": {
+          "subtitle": "Arranquemos estoy disponible 24/7"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "d54e9ccd-9c96-4d66-a9ef-0f35ebdd0737",
+      "name": "When chat message received",
+      "webhookId": "0568e0c3-e28f-4eb5-b628-69189615d710"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "157L_xoTw5AU-_tghMQS3b2YYQprAn6Lp",
+          "mode": "list",
+          "cachedResultName": "guiabtc.pdf",
+          "cachedResultUrl": "https://drive.google.com/file/d/157L_xoTw5AU-_tghMQS3b2YYQprAn6Lp/view?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "69cfc4f3-748c-4605-b035-37f2cb977ef0",
+      "name": "Download file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "S6PR2wzwTuERcwDJ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        416,
+        0
+      ],
+      "id": "847045e4-1286-4232-bb2d-9ad379393692",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Responder al siguiente mensaje: {{ $('When chat message received').item.json.chatInput }}",
+        "options": {
+          "systemMessage": "=Eres un Experto sobre Bitcoin, tus respuestas no deben ser mayores a 15 palabras. y en tus respuestas considera el siguiente texto a la hora de hablar sobre Oportunidades y riesgos de inversión: {{ $json.text }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        624,
+        0
+      ],
+      "id": "7f1df7fb-d1c4-4a0c-a836-1cf05c32a480",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        576,
+        192
+      ],
+      "id": "4639cb2d-1826-4b3b-b462-27ae929d927c",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "nCuBeWJbgon4QZ7K",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "This is the normal inversion of the person when talking or sharing in Google regarding ¿Cripto or Bitcoin?\n\n**Guido Rivas** ",
+        "width": 336
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -96,
+        -192
+      ],
+      "id": "0288b760-9e2f-4150-ba66-3f34fa5d2767",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "The objective of this workflow is to help less experienced team members understand the risks associated with cryptocurrency investments by utilizing a public document from Libre University in Colombia with a database in OpenIA to answer the prevention. \n\n**Guido Rivas** ",
+        "width": 528,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        416,
+        -192
+      ],
+      "id": "b20ef419-5743-4cdd-a218-13bc16a54993",
+      "name": "Sticky Note1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Download file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "98442b9b-ae0f-4735-bf98-92b330c67fae",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "080939fe9a04fafe307b0676d1010fe0c54049f1b53334ef4573d5f669e69b8f"
+  },
+  "id": "e1GtHXwms6QRhsn2",
+  "tags": []
+}
