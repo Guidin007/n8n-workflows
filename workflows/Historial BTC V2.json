@@ -1,0 +1,143 @@
+{
+  "name": "Historial BTC V2",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        224,
+        272
+      ],
+      "id": "6f4122f9-3b1c-4e2d-ac81-2c1fd3a20db5",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=30",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 2,
+              "batchInterval": 10000
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        432,
+        272
+      ],
+      "id": "07796243-d78e-40e0-b6ce-c94650079503",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\n// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nconst prices = items[0].json.prices; // Obtén los precios de la respuesta\n\n// Convierte los timestamps a fechas legibles\nconst processedData = prices.map(price => {\n  const timestamp = new Date(price[0]); // Toma el primer valor como timestamp\n  const date = timestamp.toLocaleString(); // Convierte a fecha legible\n  const priceInUSD = price[1]; // El segundo valor es el precio en USD\n  return { date, priceInUSD }; // Devuelve un objeto con la fecha y el precio\n});\n\nreturn processedData.map(item => ({\n  json: item\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1104,
+        96
+      ],
+      "id": "8a4ba4cd-9e91-4967-ac73-718e03be04d5",
+      "name": "Code",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "This workflow helps to search the price history of Bitcoin, working with the other workflow \"Cripto Bitcoin V2\" and send the information when received that consult.\n\n**Guido Rivas**",
+        "width": 688
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        176,
+        80
+      ],
+      "id": "6c4c2b6b-c822-43ac-ba81-34012a5218f7",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $json[\"0\"] }}",
+        "format": "custom",
+        "customFormat": "dd-MM-yyyy HH:mm:ss",
+        "outputFieldName": "Fecha",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        896,
+        272
+      ],
+      "id": "ebe911f7-d9cb-4680-8984-2ee0c733f24d",
+      "name": "Date & Time"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "prices",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        640,
+        272
+      ],
+      "id": "c1e4f881-2f03-4505-bdc8-ba6b94660b80",
+      "name": "Split Out"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Date & Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d118cf41-b39c-47c4-9c37-d3aa5d10c92f",
+  "meta": {
+    "instanceId": "080939fe9a04fafe307b0676d1010fe0c54049f1b53334ef4573d5f669e69b8f"
+  },
+  "id": "wr0hb79sDZegZhpW",
+  "tags": []
+}
