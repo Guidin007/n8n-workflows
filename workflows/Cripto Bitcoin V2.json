@@ -1,0 +1,213 @@
+{
+  "name": "Cripto Bitcoin V2",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hola Soy tu Agente sobre Bitcoin ",
+        "options": {
+          "subtitle": "Arranquemos estoy disponible 24/7"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -64,
+        32
+      ],
+      "id": "d54e9ccd-9c96-4d66-a9ef-0f35ebdd0737",
+      "name": "When chat message received",
+      "webhookId": "0568e0c3-e28f-4eb5-b628-69189615d710"
+    },
+    {
+      "parameters": {
+        "content": "This is the normal inversion of the person when talking or sharing in Google regarding ¿Cripto or Bitcoin?\n\n**Guido Rivas** ",
+        "width": 336
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -96,
+        -192
+      ],
+      "id": "0288b760-9e2f-4150-ba66-3f34fa5d2767",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "The objective of this workflow is to help less experienced team members understand the risks associated with cryptocurrency investments by utilizing a public document from Libre University in Colombia with a database in OpenIA to answer the prevention. \n\n**Guido Rivas** ",
+        "width": 528,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        416,
+        -192
+      ],
+      "id": "b20ef419-5743-4cdd-a218-13bc16a54993",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=Eres un Experto sobre Bitcoin, tus respuestas no deben ser mayores a 15 palabras. y en tus respuestas considera el siguiente texto a la hora de hablar sobre Oportunidades y riesgos de inversión: Oportunidades y riesgos de inversión en\\ncriptomonedas\\nValentina Bedoya Machado, Angela Daniela González Torres\\n1\\nFacultad de ciencias económicas, administrativas y contables, Universidad, Belmonte, Pereira, Colombia\\nCorreo electrónico: valentina-bedoyam @unilibre.edu.co\\n2\\nFacultad de ciencias económicas, administrativas y contables, Universidad Libre, Belmonte, Pereira, Colombia\\nCorreo electrónico: angelad-gonzalezt@unilibre.edu.co\\nResumen - En los últimos años las criptomonedas, las cuales nacieron a partir de la\\ncrisis mundial financiera en el 2008, han ido adquiriendo mucha fuerza e impacto a\\nnivel mundial gracias a sus características tan atractivas y a las oportunidades o\\nventajas que ofrecen a diferencia de la moneda convencional. El objetivo de este\\nartículo es dar a conocer al lector un panorama general de las oportunidades y riesgos\\nde inversión en criptomonedas. La investigación es documental de tipo descriptiva.\\nSe concluye que la condición de ser un negocio no regulado lo ha convertido en un\\nverdadero caldo de cultivo para que muchas personas al margen de la ley utilicen\\ncomo lavado de activos y desde ámbito positivo, este sistema o negocio tiene una\\nfinalidad por su condición de finanzas descentralizadas, de disminuir la inequidad\\nfinanciera.\\nPalabras claves: Bitcoin, Criptoactivos, inversión, volatilidad, descentralizado\\nAbstract - In recent years cryptocurrencies have been acquiring a lot of strength and\\nimpact worldwide thanks to their attractive characteristics and the opportunities or\\nadvantages they offer unlike conventional currency. The objective of this article is to\\nmake the reader aware of an overview of the opportunities and risks of investing in\\ncryptocurrencies. The research is documentary of a descriptive type. It is concluded that\\nthe condition of being an unregulated business has made it a real breeding ground for\\nmany people outside the law to use as money laundering and from a positive field, this\\nsystem or business has a purpose due to its condition of decentralized finance, to reduce\\nfinancial inequality. It is concluded that the condition of being an unregulated business\\nhas made it a real breeding ground for many people outside the law to use as money\\nlaundering and from a positive field, this system or business has a purpose due to its\\ncondition of decentralized finance, to reduce financial inequality.\\nKeywords: Cryptoactives, investment, volatility, decentralized\\n\\nIntroducción\\nEste artículo de revisión bibliográfica sobre\\nlas criptomonedas, cobra vital importancia en\\nestos últimos tiempos dado el vertiginoso\\ncrecimiento que ha tenido las inversiones en\\ncriptomonedas, aunque se tienen datos que se\\nremontan a los años 80s, el auge de estas ha\\nrepuntado en los últimos cinco años y dada la\\nmisma naturaleza digital de estas inversiones\\nse ha encontrado recurrentemente en el\\ncampo de las especulaciones. Por un lado, sus\\ndefensores que en gran parte son sus\\npromocionadores alentando a los inversores a\\nque incrementen sus inversiones en las\\nmencionadas criptomonedas y por otro lado\\nse encontró los detractores que en su mayoría\\nson economistas de la línea clásica\\ntradicional, que ven en la naturaleza digital de\\nla criptomoneda y en la falta de un respaldo\\npor parte de un banco central un alto grado de\\nincertidumbre, incluso algunos de los\\neconomistas más radicales han llegado a\\ndefinir este fenómeno como una peligrosa\\nburbuja financiera debido a que estas\\nfuncionan así, primero hay una subida del\\nprecio debido al aumento de inversores hasta\\nque la gente empieza a vender y es ahí cuando\\nse ocasiona la bajada. A ciencia cierta nunca\\nse sabe cuándo estalla una burbuja, pero las\\ncriptomonedas tienen las características que\\ncumplen con esta definición.\\nLas criptomonedas han polarizado opiniones\\ncomo sucede con el caso del banco mundial\\nque se sostiene que “nadie cree que Bitcoin o\\ncualquiera de estas monedas digitales pasará\\na ser conocida como la próxima moneda\\nglobal” (Di Matteo, 2014). A diferencia de la\\nopinión de la directora del Fondo Monetario\\nInternacional que se mantiene en una\\nposición más aperturista frente a esta moneda\\ndigital conceptuando que “estaría muy\\nsorprendida si en cinco años las instituciones\\nfinancieras existentes no adoptasen estas\\nherramientas” (Hazlitt, 2016); esto de alguna\\nmanera también se puede interpretar como\\nmecanismo de presión para que en algún\\nmomento las criptomonedas sean objeto de\\nregulación.\\nCobra real importancia entonces este trabajo\\nde investigación donde se mostrará tanto sus\\nbondades como debilidades o amenazas de tal\\nmanera que cada uno tenga la herramienta\\npara definir qué tan beneficioso o riesgoso\\nson las inversiones en este sector de la\\neconomía.\\nSe dice que las criptomonedas fueron creadas\\npor Satoshi Nakamoto, (aún sin definir si es\\nuna persona o un grupo) quien ingenió la\\nprimera criptomoneda, llamada el Bitcoin, la\\ncual se dio después de la gran crisis financiera\\nque se presentó en Estados Unidos en el año\\n\\n2008. Satoshi vio esto como una alternativa\\npara contribuir a la economía mundial, dado\\nque había una crisis de liquidez en los\\nmercados financieros, por lo tanto, se puede\\ndecir que las criptomonedas son la solución o\\nrespuesta a un problema que se presentaba en\\nel momento, y que la humanidad a través del\\ntiempo siempre ha encontrado soluciones a\\nlas coyunturas que se presentan. Hoy las\\ncriptomonedas son esa alternativa que\\nencontramos, muy seguramente mañana ante\\notra situación coyuntural tendremos otros\\navances que seguramente seguirán de la\\nmano de la tecnología.\\nDado que las criptomonedas basan su\\nseguridad en lo complejo de lo informático y\\nque su funcionalidad es totalmente\\nelectrónica podemos concluir que son un\\nactivo digital, es decir inmaterial o sin cuerpo\\npero con la misma funcionalidad de la\\nmoneda tradicional; y a su vez es un sistema\\nde cambio que ha incursionado en los últimos\\naños con el fin de aportar a la economía\\nglobal y asimismo aportar nuevas formas de\\npago que reemplazan la convencional por una\\ndigital, sin la ayuda de intermediarios\\nfinancieros, las criptomonedas solo existen\\nvirtualmente y su único medio de generación,\\noperación y almacenamiento es la web.\\nSe debe tener claro que el valor de la\\ncriptomoneda se le asigna por el uso que se\\nles dé, es decir, por su importancia en el\\nmercado y al estar sujeta a la importancia del\\nmercado se puede generar una inestabilidad o\\nriesgo debido a las fluctuaciones que se\\npueden presentar en el mercado por\\ndiferentes motivos como lo pueden ser los\\nfenómenos de la inflación y deflación. Las\\ncriptomonedas obedecen a las tres funciones\\nbásicas del servicio: intercambio de servicios,\\nasignarles valor a las cosas y, por último, el\\ndepósito de valor.\\nExisten muchas criptomonedas, además del\\nbitcoin, se les dio este nombre por su\\nnaturaleza encriptada ya que están protegidas\\nmediante codificaciones, lo que las hace muy\\natractivas debido a que son muy seguras, cabe\\nresaltar que tampoco son reguladas por\\nninguna entidad financiera ni del estado a\\ndiferencia del dinero convencional que si se\\nencuentra reglamentado por estas entidades.\\nAhora miremos cómo funcionan las\\ncriptomonedas.\\nEstas se mueven en un sistema\\ndescentralizado, llamado blockchain, lo que\\ntraduce cadena de bloques y esta cadena es\\nuna lista de registros que siempre va a estar\\n\\ncreciendo, y que mediante la criptografía se\\nenlazan y se aseguran.\\nEl blockchain es una nueva tecnología,\\nbasada en hashing, que está en la base de las\\nplataformas para el comercio de\\ncriptomonedas y la ejecución de contratos\\ninteligentes.” (Di Pierro, 2017)\\nEl blockchain es una herramienta que es casi\\nimposible de ser hackeada gracias al Hash y\\na que siempre está bajo la mira de muchas\\npersonas al tiempo, cuando la información de\\nun bloque es modificada los demás usuarios\\nlo sabrán, adicional a que los costos en que se\\nincurrirían para tal fin serían demasiado altos.\\n“Las criptomonedas son esencialmente\\nmonedas digitales que utilizan tecnología\\nblockchain y criptografía para facilitar\\ntransacciones seguras y anónimas. El\\nmercado de criptomonedas vale más de 500\\nmil millones de dólares” (Chan, Chu, Zhang,\\n& Nadarajah, 2020)\\nEn el mundo de las criptomonedas la minería\\nes la actividad donde se procesan\\ntransacciones y se obtienen recompensas, es\\ndecir, se agregan nuevos registros de\\ntransacciones como bloques a la cadena de\\nbloques; la tarea del minero es resolver el\\nalgoritmo del bloque siguiente y el primero\\nen lograrlo es el que se lleva la recompensa,\\nhaciendo que la actividad de la minería se\\nconvierta en una actividad comercial\\nlucrativa, aunque hoy en día esta actividad es\\nun alternativa en la economía para muchas\\npersonas, cada vez se vuelve más difícil\\nporque las recompensas se reducen cada\\ncierto tiempo hasta que llegue a cero. “Los\\nmineros son ordenadores dedicados que\\naportan su poder computacional a la red para\\nverificar las transacciones que se llevan a\\ncabo. Son computadoras que se encargan de\\nautorizar la adición de los bloques de\\ntransacción” (Yahari Navarro)\\nOportunidades de inversión en\\ncriptomonedas\\nEsta innovación trae consigo muchos\\nbeneficios y oportunidades que han motivado\\na muchas personas y empresas a apostar por\\nesta modalidad, entre estas, podemos resaltar\\nque, gracias a la descentralización de las\\ncriptomonedas no hay regulación por ningún\\nbanco o entidad. Son los usuarios quienes\\ntienen el control total de todos sus\\nmovimientos, estas también tienen un bajo\\ncosto debido a que no cuentan con\\nintermediarios en las operaciones que\\nbusquen sacar provecho de estas por medio\\nde las comisiones. “No existe una autoridad\\nde control central en la red, la red se\\ndistribuye a todos los participantes, cada\\n\\ncomputadora que extrae bitcoins es miembro\\nde este sistema. Esto significa que la\\nautoridad central no tiene poder para dictar\\nreglas para los propietarios de bitcoins. E\\nincluso si alguna parte de la red se\\ndesconecta, el sistema de pago seguirá\\nfuncionando de manera estable.” (Bunjaku,\\nGjorgieva-Trajkovska, & Miteva-Kacarski,\\n2017)\\nVale la pena resaltar la facilidad con la que se\\npuede acceder a las criptomonedas, pues solo\\nes necesario el acceso directo a internet,\\nhaciendo de esto un proceso mucho más\\nrápido; otra de sus características es que es\\nuna moneda que puede ser utilizada en\\ncualquier parte del mundo a diferencia del\\ndinero convencional que, si tiene barreras,\\npues cada país, o algunas regiones tienen su\\npropia moneda, limitando las operaciones a\\nsus territorios.\\nAlgunos opinan que esta moneda permitirá\\nuna mayor justicia social, en especial en los\\npaíses más pobres donde la moneda esta\\ndevaluada y los gobiernos son corruptos.\\nRiesgos de inversión en criptomonedas\\nLas criptomonedas no tienen control ni\\nregulación y dada su condición de digital lo\\nhace altamente vulnerable, no tienen\\nrespaldo, en el corto plazo su precio fluctúa\\nmucho (Florez Cano & Villegas Serna,\\n2019)y su volatilidad es muy alta por lo cual\\nse puede caer en la ruina fácilmente.\\nLas operaciones no son reversibles, nadie\\npuede defender los intereses de los usuarios,\\nporque nadie los controla, por lo tanto, se\\npuede ver afectado en un momento dado.\\nDebemos tener en cuenta que ante un ataque\\ncibernético lo que tenemos se puede perder\\nya que no hay respaldo de lo que nos\\npertenece, esto incrementa los riesgos al\\nmomento de invertir.\\nDurante todo este tiempo de funcionamiento\\nde las criptomonedas se ha podido identificar\\ntres grandes peligros: estafadores, inversores\\nsin formación y el desconocimiento en\\ngestión y seguridad de las propias\\ncriptomonedas. Adicionalmente, el hecho de\\nque no cuentan con el respaldo de un banco\\ncentral y no tienen protección por parte de los\\nfondos de garantía ponen a las criptomonedas\\nen una condición de alto riesgo por lo que\\nmuchos analistas y estudiosos de las\\ncriptomonedas le recomiendan a la gente\\ndestinar para la inversión dineros que nos\\nsobren y que no sean necesarios para el día a\\ndía (Vilarroig Moya, 2018) (Korn, 2021)\\n(Moreno, Soto, Valencia, & Sanchez, 2018)\\n\\nEn conclusión, la carencia de un valor\\nintrínseco por no encontrarse respaldadas por\\nningún activo tangible y el hecho de que no\\nestén reguladas por un ente vigilador hace\\nque, en la actualidad, la inversión en\\ncriptomonedas no ofrezca ninguna protección\\nlegal a los consumidores” (Puente González,\\n2018)\\nConclusiones\\n- Muchas personas tanto del común como\\ninversionistas han encontrado en el mundo de\\nlas criptomonedas el mecanismo para generar\\nutilidades, ganancias o beneficios que en otro\\nsector de la economía no pueden hallar, y\\nsaben que dichos beneficios son temporales o\\nmomentáneos dado lo novedoso del tema\\ncomo también tienen claro que apenas se\\npierda la condición de nuevo estos beneficios\\nno serán tan altos, y es justo en estos\\nfenómenos donde se ve que este negocio\\npuede ser una burbuja financiera, ya que\\narranca subiendo precio, se espera que llegue\\na un techo y posteriormente empieza a\\ndecaer.\\n- La condición de ser un negocio no regulado\\nlo ha convertido en un verdadero caldo de\\ncultivo para que muchas personas al margen\\nde la ley utilicen este negocio para lo que\\nconocemos como lavado de activos, el que\\nlos gobiernos no puedan tener trazabilidad\\nsobre estas operaciones donde se desconoce\\ncuál es el origen de los fondos y su\\ndestinación, ha fomentado que muchos\\ngrupos delincuenciales lo tengan como una\\nherramienta muy eficaz para mover sus\\nfondos sin ser detectados; es de acotar que\\neste sistema no solo lo usan delincuentes\\ntambién grandes inversionistas que no\\nquieren tributar.\\n- Teóricamente y viéndolo desde el ámbito\\nmeramente positivo, este sistema o negocio\\ntiene una finalidad por su condición de\\nfinanzas descentralizadas, de disminuir la\\ninequidad financiera, situación que es\\nrelativamente cierta y que a la fecha dicho\\npostulado no ha dejado de ser eso y que\\nseguramente faltara mucho tiempo para que\\npueda cumplirse este objetivo, ya que el mero\\nhecho de no ser un medio de pago no le\\npermite a las criptomonedas cumplir con esta\\nexpectativa.\\n- Cada propietario de criptomonedas para\\npoder realizar una operación digital debe\\ntener sus claves criptográficas, esto hace que\\nlas criptomonedas sean seguras y fiables y\\nque no se puedan falsificar, evitando con esto\\nfraudes o estafas y por consiguiente se\\nreducen las posibilidades de perdidas por este\\nconcepto, dejando el asunto de una posible\\nperdida meramente circunscrita a la\\nespeculación del mercado.\\n\\n- Aunque es notorio el crecimiento de las\\ncriptomonedas existen dos condiciones que\\nlimitan su uso en el mundo empresarial\\ncorporativo; la primera es las posibilidades de\\nque el precio fluctúe y la segunda el\\ndesconocimiento de los beneficios que estas\\npueden representarle a las empresas.\\nReferencias\\nBarroilhet Díe, A. (2019). Criptomonedas,\\neconomia y derecho. Revista chilena de\\nderecho y tecnologia.\\nBartoli, F., Costantino, M., Marzari, G., &\\nNegrito, R. G. (2021). Criptomonedas:\\nriesgos, rendimientos, valor y\\nperspectivas a futuro. Una revision de la\\nliteratura. Cordoba.\\nBunjaku, F., Gjorgieva-Trajkovska, O., &\\nMiteva-Kacarski, E. (2017).\\nCRYPTOCURRENCIES –\\nADVANTAGES AND\\nDISADVANTAGES.\\nChan, S., Chu, J., Zhang, Y., & Nadarajah, S.\\n(2020). Blockchain and\\nCryptocurrencies.\\nDi Matteo, A. (2014). Diario Bitcoin. Obtenido\\nde\\nhttps://www.diariobitcoin.com/noticias/e\\nl-fondo-monetario-internacional-y-el-\\nbanco-mundial-discutieron-sobre-el-\\npotencial-de-blockchain/\\nDi Pierro, M. (2017). What Is the Blockchain?\\nDomingo, C. (2018). Todo lo que querias saber\\nsobre bitcoin, criptomonedas y\\nblockchain y no te atrevias a preguntar.\\nBarcelona: Planeta.\\nEgaña Huertos, F. J. (2018). Criptomonedas:\\npasado, presente y ¿futuro? Sevilla.\\nFlorez Cano, L., & Villegas Serna, S. (2019).\\nBitcoin & blockchain: ¿la criptomoneda\\ny la tecnología que pueden.\\nForero González, M., & Sanabria de luque, J.\\n(2017). Ventajas y desventajas de la\\naplicacion de las criptomonedas bitcoin\\nen el ordenamiento juridico-tributario\\nde Colombia. Santa Marta.\\nGarcía Hernandez, J. M. (2018). Criptomonedas\\ny aplicacion en la economia. Madrid.\\nHazlitt, R. (2016). Obtenido de\\nhttps://www.diariobitcoin.com/noticias/\\nbancos-adoptaran-criptomonedas-en-5-\\nanos-dijo-directora-del-fondo-\\nmonetario-internacional/\\nKorn, J. (2021). Obtenido de CNN:\\nhttps://cnnespanol.cnn.com/2021/12/13/r\\nobos-criptomonedas-mayores-esto-debe-\\nsaber-trax/\\nLopez Dominguez, I., & Medina Melon, J.\\n(2020). Análisis financiero de las nuevas\\nmonedas digitales (criptomonedas).\\nMadrid.\\nMacho Rojas, A. (2019). TECNOLOGÍA\\nBLOCKCHAIN Y CRIPTOMONEDAS.\\nValladolid.\\nMoreno, B., Soto, F., Valencia, N., & Sanchez,\\nA. (2018). Criptomonedas Como\\nAlternativa de Inversión, Riesgos,\\nRegulación y Posibilidad de\\nMonetización en Colombia. Bogota.\\nNavarro Prado, M. J. (s.f.). LA TEORÍA\\nECONÓMICA Y LA CRIPTOMONEDA.\\n\\nObtenido de\\nhttp://comunicacionvirtual.wikidot.com/\\ncriptodivisas-beneficios-y-desventajas\\nOrdinas, M. (2017). Las criptomonedas:\\n¿oportunidad o borbuja?\\nPuente González, I. (2018). Criptomonedas:\\nnaturaleza jurídica y riesgos en la\\nregulación de su comercialización.\\nRevista de Derecho del Mercado de\\nValores.\\nRincon Leon, Harold Andree; Cadena Diaz,\\nPaola Andrea. (2018). Universidad la\\ngran Colombia. Obtenido de\\nhttps://repository.ugc.edu.co/bitstream/h\\nandle/11396/4657/PROYECTO%20CRI\\nPTOMONEDAS.pdf?sequence=1&isAll\\nowed=y\\nRosenbaum, E. (2018). CNBC. Obtenido de\\nhttps://www.cnbc.com/2017/12/19/a-\\nnew-form-of-bitcoin-mining-patent-\\ntrolls-coming-for-the-blockchain.html\\nSarmiento Suarez, J., & Garces Bautista, J. L.\\n(2016). Criptodivisas en el entorno\\nglobal y su incidencia en Colombia.\\nBucaramanga.\\nTapscott, D., & Tapscott, A. (2016). La\\nrevolucion blockchain. Barcelona:\\nDeusto.\\nTorres Largo, W., Verdugo Fernandez, M., &\\nMosquera Palacios, E. (2019). Las\\nCriptomonedas y su aplicación en\\nColombia. Bogota.\\nTorres, J. (2019). Criptomonedas, que son, como\\nutilizarlas y por que van a cambiar el\\nmundo. Barcelona: Planeta.\\nVal Gangonells, O. (2020). LA MINERÍA EN\\nCRIPTOMONEDAS. Barcelona.\\nVera Molero, T. E., & Escobar Cortez, A. M.\\n(2021). Criptomonedas, su uso e\\ninversión en tiempos de Covid-19:Una\\npostura fenomenológica de la dinámica\\nmonetaria contemporanea. Lima.\\nVilarroig Moya, R. (2018). Tributación de\\ncriptomonedas.\\nVillameriel Martinez, I. (2019). Blockchain y\\ncriptomonedas. Valladolid.\\nYahari Navarro, B. (s.f.). Blockchain y sus\\naplicaciones. Asuncion.\\nAviso de copyright. Los autores que se someten a esta conferencia están de acuerdo en los siguientes términos: Los autores\\nconservan los derechos de autor sobre su trabajo, al tiempo que permite a la conferencia para colocar este trabajo no\\npublicado bajo una licencia Creative Commons Attribution License, que permite a otros acceder, utilizar libremente y\\ncompartir el trabajo, con un reconocimiento de la autoría de la obra y su presentación inicial en esta conferencia. Los\\nautores son capaces de renunciar a los términos de la licencia CC y celebrar acuerdos contractuales separados, adicionales\\npara la distribución no exclusiva y posterior publicación de este trabajo (por ejemplo, publicar una versión revisada en una\\nrevista, publicarla en un repositorio institucional y publicar en un libro), con un reconocimiento de su presentación inicial\\nen esta conferencia. Además, se anima a los autores a publicar y compartir su línea de trabajo (por ejemplo, en repositorios\\ninstitucionales o en su página web) en cualquier momento antes y después de la conferencia. Los autores están de acuerdo\\ncon los términos de este Aviso de Derechos de Autor, que se aplicarán a la presente comunicación, siempre y cuando se\\npublica por la presente Conferencia. El presente es {{ $now }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        128,
+        32
+      ],
+      "id": "3b3160e7-90eb-4e9d-8230-4545814a1028",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        16,
+        288
+      ],
+      "id": "962916cb-0b8e-4d45-bce9-a57c8fa019eb",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "nCuBeWJbgon4QZ7K",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        256,
+        272
+      ],
+      "id": "08767b72-b670-4b0b-9768-422a092365c6",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Obtener el precio del Bitcoin en tiempo real",
+        "url": "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [
+        496,
+        256
+      ],
+      "id": "abda340d-ee66-4bf1-928a-ad1ea9fd2926",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "description": "Trabaja con esta herramienta para obtener el precio histórico de Bitcoin en los últimos 30 días, señala la hora del precio.",
+        "workflowId": {
+          "__rl": true,
+          "value": "61hxyZ1d7girjuHl",
+          "mode": "list",
+          "cachedResultName": "Historial BTC"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        768,
+        208
+      ],
+      "id": "81c3ce83-eafa-4664-a7fb-8efc9782769e",
+      "name": "Call n8n Workflow Tool"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call n8n Workflow Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f9869584-136b-4807-adf0-6366a38f9fe2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "080939fe9a04fafe307b0676d1010fe0c54049f1b53334ef4573d5f669e69b8f"
+  },
+  "id": "e1GtHXwms6QRhsn2",
+  "tags": []
+}
